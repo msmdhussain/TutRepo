@@ -1,0 +1,41 @@
+INSTALL ORACLE JAVA 8 IN UBUNTU VIA PPA REPOSITORY [JDK8]
+
+Our PPA supports Ubuntu 14.04, 13.10, 12.04 and 10.04 as well as the corresponding Linux Mint versions. Add the PPA and install Oracle Java 8 (the package provides both JDK8 and JRE8) using the following commands:
+
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+
+Once installed, running "java -version" in terminal should output somethin like this:
+java version "1.8.0"
+Java(TM) SE Runtime Environment (build 1.8.0-b132)
+Java HotSpot(TM) 64-Bit Server VM (build 25.0-b70, mixed mode)
+
+
+Automated installation (auto accept license)
+
+
+The installer requires you to accept the Oracle license before the installation begins. This is only required once. If for some reason you need the installation to be automated, you can run the following command to automatically accept the Oracle license:
+
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+
+Switching between Oracle Java 8 and Java 7
+
+ater on, if you want to switch Oracle Java 7, use the following command (make sure "oracle-java7-installer" package is installed):
+sudo update-java-alternatives -s java-7-oracle
+
+And, switch back to Oracle Java 8 using:
+sudo update-java-alternatives -s java-8-oracle
+If you get some warnings when running these two commands, ignore them.
+
+
+Setting Java environment variables
+
+
+To automatically set up the Java 8 environment variables, you can install the following package:
+sudo apt-get install oracle-java8-set-default
+
+If you've already installed oracle-java6-set-default or oracle-java7-set-default, they will be automatically removed when installing oracle-java8-set-default (and the environment variables will be set for Oracle Java 8 instead).
+

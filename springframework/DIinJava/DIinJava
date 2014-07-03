@@ -1,0 +1,5 @@
+Dependency Injeciton desing pattern allows us to remove the hard-code dependencies and make our application loosely coupled, extendable and maintainable. We can implement dependency injection pattern to move the dependency resolution from compile-time to runtime.
+
+Dependency injection pattern seems had to grasp with theory
+
+

@@ -1,0 +1,20 @@
+Conditional Breadkpoint
+-----------------------
+
+	To add a breadkpoin jst click on the left pane, just before the line number and a breakpoint will be created. In debug prespective, 'Breakpoints' view will list the breakpoint created. We can add aboolean condition to it. That is, the breakpoint will be activated and execution will hold aonly if the boolean condition is met otherwise this breakpoint will be skipped.
+
+Exception Breakpoint
+--------------------
+
+	In Breakpoints view there is a buttion labelled as J! We can use that button to add a java exception based breakpoint. For example we want the program to halt and allow to debug when a NullPointerException is thrown we can add a breakpoint using this.
+
+Watch Point
+-----------
+
+	When a chosen attribute is accessed or modified program execution will hald and allow to debug. Select a class variable in Outline view and from its context menu select Toggle Watchpoint. this will create a watch point for that attribute and it will be listed in Breakpoints view.
+
+Evaluation (Display or Inspect or Watch)
+----------------------------------------
+
+	Ctrl+Shift+d or Ctrl+Shift+i on a slelected variable or expression will show the value. We can also add a permanent watch on an expression/variable which will be shown in Expressions view when debug is on.
+

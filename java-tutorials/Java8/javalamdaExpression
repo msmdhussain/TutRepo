@@ -1,0 +1,48 @@
+Lambda expression in Java 8, enables to pass a functionality as a method argument. Lambda expression are informally called as closures. Lambda expressions are similar to methods, it has arguments, abody and return type. They can also be called as anonymous methods. A method without name. One of the main features of lambda expressions is it enables passing a method as argument to another method. I see that because of this feature it is going to unravel umpteen programming possibilities.
+
+
+Functional Interfaces
+---------------------
+An interface with no method is a marker interface. An interface with only one abstract method is a function interface. actionListener class is an example of functional interface. We use anonymous class to implement ActionListener and in this kind of scenario, instead of using anonymous inner classes to implemnt, lambda expressions can be used. It will be simple and better compared to anonymous inner classes.
+
+
+Struncture of a Lambda Expression
+---------------------------------
+
+(Argument List) Arrow Token{Body}
+
+(type argument,...)->{java statements;}
+
+Example Lambda Exrepssions
+--------------------------
+
+() -> { System.out.println("Hello World");}
+(int a, int b) -> a+b;
+() -> {return 1;}
+(String name) -> { System.out.println("Hello "+name);}
+n -> n % 2 =0
+
+
+Lambda Expression - Key Notes
+-----------------------------
+
+One important difference between anonymous inner class and lambda expression is, if we use 'this' it resolves to anonymous class but in the case of lambda expression, it resolves to the enclosing class.
+
+Lambda expression can have zero to any number of paramenters.
+
+If there are no parameters to be passed, then an empty parenteses is given.
+
+Type of the passed parameter can be explicitly declared or can be taken from context.
+
+If the parameter's type is inferred from the context then the parentheses nedd not be used.
+
+Lambda expression body can have zero to any number of statements.
+
+Body of expression should be enclosed in curly braces, if there is only one statement curly brace is not needed.
+
+
+
+
+
+
+
