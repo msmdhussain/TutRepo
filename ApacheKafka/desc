@@ -1,0 +1,90 @@
+
+Walkthrough
+-----------
+
+	Kafka is an Apache project initally developed by LinkedIn. It is da distributed publish-subscribe messaging system. it is designed to process real time activity stream data such as logs and metric collections. It is written in Scala and does not follow JMS  (Java Message Service) standards.
+
+
+What is Kafka?
+-------------
+Apache Kafka is a high-throughput distributed messaging system. Kafka is a distributed, partitioned commit log service, that provides the functionality of a messaging system with a unique design.
+
+Let’s first review some basic terminologies:
+
+Topics: The categories in which Kafka maintains its feeds of messages.
+
+Producers: The processes that publish messages to a topic.
+
+Consumers: The processes that subscribe to topics so as to fetch the above published messages.
+
+Broker: The cluster consisting of one or more servers in Kafka.
+
+TCP Protocol: The client and server communicate using this protocol.
+
+ So, we can say that the producers send messages to the Kafka brokers which in turn serves them up to consumers. Kafka mainly uses Zookeeper to form cluster of nodes (producer/consumer/broker)
+
+Digression: Topics, Partitions and Replication in Kafka TopicAs mentioned earlier, topic is a category or feed name to which messages are published. For each topic the Kafa cluster/broker maintains a partitioned log. Each partition is an ordered, immutable sequence of messages that is continually appended to a commit log. The messages in the partition are each assigned with a sequential id number called the offset, which uniquely identifies each message within the partition. The Kafka cluster retains all published messages, irrespective of whether they have been consumed, for a configurable amount of time. 
+
+
+
+
+
+Partitions in Log
+	A topic may have many partitions thus enabling it to handle an arbitrary amount of data. They act as the unit of parallelism. The partitions of the log are distributed over the servers in the Kafka cluster with each server handling data and requests for a share of partitions. Each partition is replicated across a configurable number of servers. Kafka assigns each server with a leader and follower, which helps in the whole replication cycle of messages in the partitions.
+
+Leader and Follower
+	Each partition has one server which acts as the leader and zero or more servers which act as followers.
+
+	The leader handles all read and write requests for the partition, while followers passively replicate the leader.
+
+	This replication helps to retain messages on leader’s failure. If the leader fails, one of the followers automatically becomes the new leader.
+
+	Each server acts as a leader for some of its partitions and a follower for others, so load is well balanced within the cluster.
+
+In a nutshell, Kafka partitions the incoming messages for a topic, and assigns these partitions to an available Kafka broker. The partition replication feature was enabled in Kafka 0.8 to make the cluster more resilient against host failures. 
+
+Producers
+---------
+
+	Producers are processes which publish data to a topic of their choice. The producer is able to choose which message to assign to which partition within a topic. This can be achieved using round robin fashion or by any other semantic partition function. 
+
+Consumers
+---------
+	Kafka offers a single consumer abstraction that generalizes both Queuing and Publish-Subscribe Consumer Group. Consumers label themselves with a consumer group name and each message published to a topic is delivered to one consumer instance within each subscribing consumer group. Consumer instances can be on separate processes or on separate machines. 
+
+
+Based on the consumer groups, we can determine the messaging model of the consumer:
+	If all consumer instances have the same consumer group, then this works just like a traditional queue balancing load over the consumers.
+	If all consumer instances have different consumer groups, then this works like a publish-subscribe and all messages are broadcast to all the consumers.
+
+Use Cases of Kafka
+------------------
+Apache Kafka has a few popular use cases by far. It was mainly introduced for website activity tracking for real-time publish-subscribe feeds. It can also be used for Messaging, Event Sourcing and Stream Processing etc. 
+
+Steps for Installation and Server Setup
+---------------------------------------
+
+The latest stable version of Kafka is 0.8 release. Follow these steps to set a Kafka message service:
+	Clone the repo with Github link – https://git-wip-us.apache.org/repos/asf/kafka.git
+          
+	  git clone https://git-wip-us.apache.org/repos/asf/kafka.git
+	Now enter the directory and run the following commands:
+sudo ./sbt update            sudo ./sbt package            sudo ./sbt assembly-package-dependency
+
+To start the Zookeeper server, run (in the directory)
+            bin/zookeeper-server-start.sh config.zookeeper.properties
+
+Now start the Kafka server, run (in the directory)
+            bin/kafka-server-start.sh config/server.properties
+
+Create a topic for publishing messages,
+            bin/kafka-create-topic.sh –zookeeper localhost:2181 –replica 1 –partition 1–topic test            (Here you can mention the number of replica instances, partitions and name for the topic)
+	Publish-Subscribe some messages by,
+
+– Run the producer,       
+     bin/kafka-console-producer.sh  –broker-list localhost:9092 –topic test           
+     Now type down the message you want to send.            
+– Later, run the consumer,           
+     bin/kafka-console-consumer.sh –zookeeper localhost:2181 –topic test–from-beginning
+Here, you would be able to view the published messages from the last step.
+
