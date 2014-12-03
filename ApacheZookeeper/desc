@@ -1,0 +1,115 @@
+Zookeer fundamentals
+--------------------
+	Apache Zookeeper is a high-performance coordination server for distributed applications. It exposes common services --such as naming and configuration management, synchronization,
+and group services -- in a simple interface, relieving the use from the need to program from scratch. It comes with off-the-shelf support for implementing consensus, group management,
+leader election, and presence protocols.
+
+
+Introduction
+-------------
+
+  Zookeeper is a building block for distributed systems. When desigining a distributed system, there si typeicalla need for designing and developing some coordination services
+
+ 1.Name service -  A name service is a service that maps a name to some information assosicated with that name.
+   A telephone directory is a name service that maps that name of person to his/her telephone number. In the same way, a DNS service is a name service that maps a domain name to an IP address.
+In distributed system, you may want to keep a track of which servers or services are up and running and look up their status by name.
+ZooKeeper exposes  a simple interace to do that. 
+A name service can also be extended to a group membership service by means of which you can obtain information pertaining to the group associated with the entity whose name is being looked up.
+
+ 2.Locking - To alolow for serialized access to a shared resources in your distributed system, you may need to implement distributed mutexes. 
+Zookeeper provides for an easy way for you to implement them.
+
+3.Synchronization - Hand in hand with distributed mutexes is the need for synchronizing access to shared resources.
+Wheteher implementing a producer-consumern queue or a barrier, Zookeeper provides a simple interface to implement that. 
+
+4.Configuration management - You can use Zookeeper to centrally store and mange the configuration of your distributed system. 
+This means that any new nodes joining will pick up the up-to-date centralized configuration from Zookeeper as soon as they join the system.
+
+5.Leader election - — Your distributed system may have to deal with the problem of nodes going
+
+down, and you may want to implement an automatic fail-over strategy. ZooKeeper provides
+
+off-the-shelf support for doing so via leader election
+
+
+
+Keeper, while being a coordination service for distributed systems, is a distributed application
+
+on its own. ZooKeeper follows a simple client-server model where clients are nodes (i.e.,
+
+machines) that make use of the service, and servers are nodes that provide the service. A
+
+collection of ZooKeeper servers forms a ZooKeeper ensemble. At any given time, one ZooKeeper
+
+client is connected to one ZooKeeper server. Each ZooKeeper server can handle a large number
+
+of client connections at the same time. Each client periodically sends pings to the ZooKeeper
+
+server it is connected to let it know that it is alive and connected. The ZooKeeper server in
+
+question responds with an acknowledgment of the ping, indicating the server is alive as well. When
+
+the client doesn't receive an acknowledgment from the server within the specified time, the client
+
+connects to another server in the ensemble, and the client session is transparently transferred
+
+over to the new ZooKeeper server.
+ 
+
+
+Client-server architecture of ZooKeeper
+--------------------------------------
+
+ZooKeeper has a file system-like data model composed of znodes. Think of znodes (ZooKeeper
+
+data nodes) as files in a traditional UNIX-like system, except that they can have child nodes.
+
+Another way to look at them is as directories that can have data associated with themselves. Each
+
+of these directories is called a znode. Figure 2 shows a diagram representing the same hierarchy
+
+as sports team in two cities
+
+The znode hierarchy is stored in memory within each of the ZooKeeper servers. This allows for
+
+scalable and quick responses to reads from the clients. Each ZooKeeper server also maintains
+
+a transaction log on the disk, which logs all write requests. This transaction log is also the most
+
+performance critical part of ZooKeeper because a ZooKeeper server must sync transactions
+
+to disk before it returns a successful response. The default maximum size of data that can be
+
+stored in a znode is 1 MB. Consequently, even though ZooKeeper presents a file system-like
+
+hierarchy, it shouldn't be used as a general-purpose file system. Instead, it should only be used as
+
+a storage mechanism for the small amount of data required for providing reliability, availability, and
+
+coordination to your distributed application.
+
+When a client requests to read the contents of a particular znode, the read takes place at the
+
+server that the client is connected to. Consequently, since only one server from the ensemble
+
+is involved, reads are quick and scalable. However, for writes to be completed successfully, a
+
+strict majority of the nodes of the ZooKeeper ensemble are required to be available. When the
+
+ZooKeeper service is brought up, one node from the ensemble is elected as the leader. When
+
+a client issues a write request, the connected server passes on the request to the leader. This
+
+leader then issues the same write request to all the nodes of the ensemble. If a strict majority of
+
+the nodes (also known as a quorum) respond successfully to this write request, the write request is
+
+considered to have succeeded. A successful return code is then returned to the client who initiated
+
+the write request. If a quorum of nodes are not available in an ensemble, the ZooKeeper service is
+
+nonfunctional.
+
+
+
+	
