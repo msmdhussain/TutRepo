@@ -1,0 +1,16 @@
+
+apply plugin :'java'
+apply plugin :'eclipse'
+apply plugin :'maven'
+
+
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+
+	dependencies {
+         	compile group:'com.aerospike', name:'aerospike-client', version:'3.+' 
+//compile 'org.citrusleaf:citrusleaf-client:2.0.23'
+
+	}

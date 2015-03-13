@@ -1,0 +1,11 @@
+
+apply plugin : "java"
+apply plugin : "eclipse"
+
+
+
+dependencies {
+
+ compile files('/opt/jdk/jdk1.7.0_05/jre/lib/javaws.jar')
+
+}

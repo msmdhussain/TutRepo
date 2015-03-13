@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="20" started-at="2015-02-27T10:12:25Z" finished-at="2015-02-27T10:12:25Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="20" started-at="2015-02-27T10:12:25Z" finished-at="2015-02-27T10:12:25Z">
+      <class name="com.testng.project.test.TestRandomEmailGenerator">
+        <test-method status="PASS" signature="testGenerate()[pri:0, instance:com.testng.project.test.TestRandomEmailGenerator@2da5660]" name="testGenerate" duration-ms="10" started-at="2015-02-27T15:42:25Z" finished-at="2015-02-27T15:42:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGenerate -->
+      </class> <!-- com.testng.project.test.TestRandomEmailGenerator -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
